@@ -1,0 +1,2726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Uzaam Shaad | Portfolio</title>
+
+  <style>
+    /* ============================================
+       RESET
+    ============================================ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background: #080808;
+      color: #f5f5f5;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    :root {
+      --bg: #080808;
+      --bg-soft: #111111;
+      --card: #151515;
+      --card-hover: #1b1b1b;
+      --text: #f5f5f5;
+      --muted: #9a9a9a;
+      --line: #292929;
+      --accent: #ffffff;
+      --max-width: 1200px;
+    }
+
+    /* ============================================
+       PAGE SYSTEM
+    ============================================ */
+    .page {
+      display: none;
+      animation: fadeIn .45s ease;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .container {
+      width: min(calc(100% - 48px), var(--max-width));
+      margin: auto;
+    }
+
+    section {
+      padding: 100px 0;
+    }
+
+    .section-header {
+      margin-bottom: 55px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--muted);
+      margin-bottom: 15px;
+    }
+
+    .section-title {
+      font-size: clamp(36px, 5vw, 62px);
+      line-height: 1.05;
+      letter-spacing: -2px;
+      max-width: 800px;
+    }
+
+    .section-description {
+      color: var(--muted);
+      max-width: 700px;
+      margin-top: 18px;
+      font-size: 17px;
+    }
+
+    /* ============================================
+       NAVBAR
+    ============================================ */
+    header {
+      height: 76px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(8, 8, 8, .92);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .logo {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -.8px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .logo span {
+      color: #777;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      list-style: none;
+    }
+
+    .nav-link {
+      color: var(--muted);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 14px;
+      transition: .25s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--text);
+    }
+
+    .nav-contact {
+      border: 1px solid #3a3a3a;
+      padding: 10px 18px;
+      border-radius: 7px;
+      color: var(--text);
+    }
+
+    .menu-toggle {
+      display: none;
+      border: 0;
+      background: transparent;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    /* ============================================
+       BUTTONS
+    ============================================ */
+    .buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+
+    .btn {
+      border: 1px solid var(--line);
+      background: transparent;
+      color: white;
+      padding: 13px 22px;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: .25s ease;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      background: #202020;
+    }
+
+    .btn-primary {
+      background: white;
+      color: black;
+      border-color: white;
+    }
+
+    .btn-primary:hover {
+      background: #dedede;
+    }
+
+    /* ==========================================================================
+       Floating Left Social Bar (Exact Reference Signature Feature)
+       ========================================================================== */
+    .floating-social-bar {
+      position: fixed;
+      left: 2rem;
+      top: 50%;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      z-index: 50;
+    }
+
+    .floating-social-link {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-full);
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: var(--glass-blur);
+      transition: var(--transition-smooth);
+      position: relative;
+    }
+
+    .floating-social-link:hover {
+      border-color: var(--primary);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(224, 226, 221, 0.329);
+    }
+
+    .floating-social-line {
+      width: 1.5px;
+      height: 100px;
+      background: linear-gradient(to bottom, var(--border-medium), transparent);
+    }
+
+    @media (max-width: 1080px) {
+      .floating-social-bar {
+        display: none;
+      }
+    }
+
+    /* ================================
+   FERROFLUID BACKGROUND
+================================ */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.ferrofluid-background {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+#ferrofluid-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0.65;
+}
+
+/* Dark gradient over the animation */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      transparent 0%,
+      rgba(81, 68, 68, 0.18) 45%,
+      rgba(10, 10, 10, 0.82) 100%
+    );
+}
+
+/* Keep content above animation */
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+    /* ============================================
+       HOME HERO
+    ============================================ */
+    .hero {
+      min-height: calc(100vh - 76px);
+      display: flex;
+      align-items: center;
+      padding: 80px 0;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .availability {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      padding: 8px 13px;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 30px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 15px white;
+    }
+
+    .hero h1 {
+      font-size: clamp(52px, 8vw, 104px);
+      line-height: .96;
+      letter-spacing: -5px;
+      max-width: 950px;
+    }
+
+    .hero h1 .muted-text {
+      color: #626262;
+    }
+
+    .hero-role {
+      font-size: clamp(18px, 2vw, 25px);
+      color: #c0c0c0;
+      margin-top: 25px;
+      max-width: 680px;
+    }
+
+    .hero-description {
+      margin-top: 20px;
+      max-width: 620px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .hero-card {
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, #181818, #0d0d0d);
+      min-height: 380px;
+      padding: 35px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hero-card-top {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .profile-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 1px solid #444;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      font-weight: 800;
+      margin: 20px 0;
+    }
+
+    .hero-card h3 {
+      font-size: 22px;
+      letter-spacing: -.8px;
+    }
+
+    .hero-card p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    .quick-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    .tag {
+      border: 1px solid #333;
+      color: #bbb;
+      padding: 6px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+    }
+
+    /* ============================================
+       FEATURED PROJECTS
+    ============================================ */
+    .featured-projects {
+      border-top: 1px solid var(--line);
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      transition: .3s ease;
+      overflow: hidden;
+    }
+
+    .project-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(224, 226, 221, 0.329);
+    }
+
+    .project-image {
+      height: 190px;
+      border-bottom: 1px solid var(--line);
+      padding: 22px;
+      display: flex;
+      align-items: flex-end;
+      font-size: 42px;
+      background:
+        radial-gradient(circle at 20% 20%, #292929, transparent 35%),
+        linear-gradient(145deg, #1b1b1b, #0e0e0e);
+    }
+
+    .project-body {
+      padding: 25px;
+    }
+
+    .project-body h3 {
+      font-size: 21px;
+      line-height: 1.2;
+      letter-spacing: -.6px;
+    }
+
+    .project-body p {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 13px 0 18px;
+    }
+
+    .project-highlights {
+      list-style: none;
+      margin-bottom: 20px;
+    }
+
+    .project-highlights li {
+      color: #bdbdbd;
+      font-size: 12px;
+      margin-bottom: 7px;
+    }
+
+    .project-highlights li::before {
+      content: "•";
+      margin-right: 8px;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      font-size: 13px;
+    }
+
+    .card-link {
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    /* ============================================
+       SKILLS
+    ============================================ */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .skill-card {
+      border: 1px solid var(--line);
+      background: var(--card);
+      padding: 28px;
+    }
+
+    .skill-icon {
+      font-size: 30px;
+      margin-bottom: 35px;
+    }
+
+    .skill-card h3 {
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+
+    .skill-count {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .skill {
+      margin: 15px 0;
+    }
+
+    .skill-row {
+      display: flex;
+      justify-content: space-between;
+      color: #bbb;
+      font-size: 12px;
+      margin-bottom: 7px;
+    }
+
+    .progress {
+      height: 4px;
+      background: #282828;
+      overflow: hidden;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      background: white;
+    }
+
+    /* ============================================
+       ACHIEVEMENTS
+    ============================================ */
+    .achievement-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--line);
+    }
+
+    .achievement {
+      padding: 35px 25px;
+      border-right: 1px solid var(--line);
+    }
+
+    .achievement:last-child {
+      border-right: 0;
+    }
+
+    .achievement-number {
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -2px;
+    }
+
+    .achievement h3 {
+      margin-top: 15px;
+      font-size: 16px;
+    }
+
+    .achievement p {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* ============================================
+       TESTIMONIALS
+    ============================================ */
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .testimonial {
+      padding: 32px;
+      border: 1px solid var(--line);
+      background: var(--card);
+    }
+
+    .quote {
+      font-size: 18px;
+      line-height: 1.7;
+      color: #ddd;
+    }
+
+    .person {
+      margin-top: 30px;
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #292929;
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+    }
+
+    .person strong {
+      display: block;
+      font-size: 14px;
+    }
+
+    .person span {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ============================================
+       ABOUT
+    ============================================ */
+    .page-hero {
+      padding: 100px 0 80px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .page-hero h1 {
+      font-size: clamp(50px, 8vw, 92px);
+      line-height: .98;
+      letter-spacing: -4px;
+      max-width: 950px;
+    }
+
+    .page-hero p {
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 720px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 80px;
+    }
+
+    .about-sidebar h3 {
+      font-size: 14px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 15px;
+    }
+
+    .about-content {
+      font-size: 20px;
+      color: #d5d5d5;
+    }
+
+    .about-content p {
+      margin-bottom: 25px;
+    }
+
+    .about-content p:last-child {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .education-card {
+      margin-top: 45px;
+      border-top: 1px solid var(--line);
+      padding-top: 28px;
+    }
+
+    .education-card h3 {
+      font-size: 21px;
+      margin-bottom: 8px;
+    }
+
+    .education-card p {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 4px 0;
+    }
+
+    /* ============================================
+       EXPERIENCE
+    ============================================ */
+    .experience-list {
+      border-top: 1px solid var(--line);
+    }
+
+    .experience-item {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 50px;
+      padding: 45px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .experience-date {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .experience-content h2 {
+      font-size: 28px;
+      letter-spacing: -1px;
+    }
+
+    .company {
+      color: #aaa;
+      margin: 7px 0 20px;
+      font-size: 15px;
+    }
+
+    .experience-content > p {
+      color: var(--muted);
+      max-width: 760px;
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+
+    .bullet-list {
+      list-style: none;
+      margin: 22px 0;
+    }
+
+    .bullet-list li {
+      color: #b7b7b7;
+      margin-bottom: 11px;
+      font-size: 14px;
+    }
+
+    .bullet-list li::before {
+      content: "→";
+      margin-right: 10px;
+      color: white;
+    }
+
+    /* ============================================
+       PROJECT PAGE
+    ============================================ */
+    .all-projects {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .large-project {
+      border: 1px solid var(--line);
+      background: var(--card);
+      padding: 32px;
+      min-height: 350px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: .3s ease;
+    }
+
+    .large-project:hover{
+      border-color: var(--primary);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(224, 226, 221, 0.329);
+    }
+
+    .project-top {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .large-project h2 {
+      font-size: 30px;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-top: 25px;
+    }
+
+    .large-project p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 14px;
+    }
+
+    /* ============================================
+       BLOG
+    ============================================ */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .blog-card {
+      border: 1px solid var(--line);
+      background: var(--card);
+      padding: 28px;
+      min-height: 330px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: .3s ease;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-5px);
+      background: var(--card-hover);
+    }
+
+    .blog-meta {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .blog-card h2 {
+      font-size: 25px;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin: 20px 0;
+    }
+
+    .blog-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* ============================================
+       CONTACT
+    ============================================ */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: .85fr 1.15fr;
+      gap: 70px;
+    }
+
+    .contact-info h2 {
+      font-size: 38px;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+    }
+
+    .contact-info > p {
+      color: var(--muted);
+      margin-top: 20px;
+      font-size: 15px;
+    }
+
+    .contact-methods {
+      margin-top: 40px;
+    }
+
+    .contact-method {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .contact-method small {
+      display: block;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+
+    .contact-method a,
+    .contact-method span {
+      font-size: 16px;
+    }
+
+    .contact-form {
+      border: 1px solid var(--line);
+      padding: 35px;
+      background: var(--card);
+    }
+
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 9px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      background: #0c0c0c;
+      border: 1px solid #303030;
+      color: white;
+      padding: 14px;
+      outline: none;
+      border-radius: 5px;
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #777;
+    }
+
+    /* ============================================
+       FOOTER
+    ============================================ */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 70px 0 30px;
+      margin-top: 50px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 60px;
+    }
+
+    .footer-brand h2 {
+      font-size: 25px;
+      letter-spacing: -1px;
+    }
+
+    .footer-brand p {
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 370px;
+      margin-top: 13px;
+    }
+
+    .footer-column h3 {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 11px;
+      margin-bottom: 16px;
+    }
+
+    .footer-column button,
+    .footer-column a {
+      display: block;
+      border: 0;
+      background: transparent;
+      color: #d4d4d4;
+      padding: 5px 0;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--line);
+      padding-top: 25px;
+      display: flex;
+      justify-content: space-between;
+      color: #666;
+      font-size: 12px;
+    }
+
+    /* ============================================
+       RESPONSIVE
+    ============================================ */
+    @media (max-width: 950px) {
+      .hero-grid,
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        min-height: 280px;
+      }
+
+      .project-grid,
+      .skills-grid,
+      .blog-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .achievement-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .achievement:nth-child(2) {
+        border-right: 0;
+      }
+
+      .experience-item {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        width: min(calc(100% - 30px), var(--max-width));
+      }
+
+      section {
+        padding: 70px 0;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 76px;
+        left: 0;
+        width: 100%;
+        background: #0b0b0b;
+        border-bottom: 1px solid var(--line);
+        padding: 20px 25px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .project-grid,
+      .skills-grid,
+      .testimonial-grid,
+      .all-projects,
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .achievement-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .achievement {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .achievement:last-child {
+        border-bottom: 0;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .hero h1,
+      .page-hero h1 {
+        letter-spacing: -3px;
+      }
+
+      .contact-form {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container navbar">
+    <div class="logo" onclick="showPage('home')">
+      Uzaam <span>Shaad K.</span>
+    </div>
+
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><button class="nav-link active" data-page="home">Home</button></li>
+        <li><button class="nav-link" data-page="about">About</button></li>
+        <li><button class="nav-link" data-page="experience">Experience</button></li>
+        <li><button class="nav-link" data-page="projects">Projects</button></li>
+        <li><button class="nav-link" data-page="blog">Blog</button></li>
+        <li>
+          <button class="nav-link nav-contact" data-page="contact">
+            Contact
+          </button>
+        </li>
+      </ul>
+    </nav>
+
+    <button class="menu-toggle" id="menuToggle">☰</button>
+  </div>
+</header>
+
+
+<!-- ============================================
+     HOME
+============================================ -->
+<main class="page active" id="home">
+
+  <section class="hero" id="home">
+
+  <!-- Ferrofluid Background -->
+  <div class="ferrofluid-background" aria-hidden="true">
+    <canvas id="ferrofluid-canvas"></canvas>
+  </div>
+
+    <div class="container hero-grid">
+
+      <div>
+        <div class="availability">
+          <span class="dot"></span>
+          Available for opportunities
+        </div>
+
+        <h1>
+          Hello, I'm<br>
+          <span class="muted-text">Uzaam Shaad K</span>
+        </h1>
+
+        <p class="hero-role">
+          Software Developer · Data Analyst · AI/ML Enthusiast
+        </p>
+
+        <p class="hero-description">
+          BCA graduate passionate about building practical software,
+          analyzing data, and exploring artificial intelligence and
+          machine learning to solve real-world problems.
+        </p>
+
+        <div class="buttons">
+          <button class="btn btn-primary" onclick="showPage('projects')">
+            View Projects
+          </button>
+
+          <button class="btn" onclick="showPage('contact')">
+            Get In Touch
+          </button>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <div class="hero-card-top">
+          <span>PORTFOLIO</span>
+          <span>2026</span>
+        </div>
+
+        <div class="profile-circle">US</div>
+
+        <div>
+          <h3>Building. Learning. Growing.</h3>
+
+          <p>
+            Interested in software development, analytics,
+            AI, machine learning and data-driven solutions.
+          </p>
+
+          <div class="quick-tech">
+            <span class="tag">Python</span>
+            <span class="tag">SQL</span>
+            <span class="tag">AI/ML</span>
+            <span class="tag">HTML/CSS</span>
+            <span class="tag">TensorFlow</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Left Docked Floating Social Bar (Reference Signature) -->
+  <aside class="floating-social-bar" aria-label="Social Profiles">
+    <a href="https://github.com/uzaam07" target="_blank" rel="noopener noreferrer" class="floating-social-link" title="GitHub (@uzaam07)" aria-label="GitHub">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+        <path d="M9 18c-4.51 2-5-2-7-2"></path>
+      </svg>
+    </a>
+    <a href="https://www.linkedin.com/in/uzaamshaad" target="_blank" rel="noopener noreferrer" class="floating-social-link" title="LinkedIn Profile" aria-label="LinkedIn">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+        <rect width="4" height="12" x="2" y="9"></rect>
+        <circle cx="4" cy="4" r="2"></circle>
+      </svg>
+    </a>
+    <a href="mailto:uzaamshaad6@gmail.com" class="floating-social-link" title="Email Uzaam" aria-label="Email">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+        <path d="m22 7-8.99 5.73a2 2 0 0 1-2.02 0L2 7"></path>
+      </svg>
+    </a>
+    <div class="floating-social-line"></div>
+  </aside>
+
+    </div>
+  </section>
+
+
+  <section class="featured-projects">
+    <div class="container">
+
+      <div class="section-header">
+        <span class="eyebrow">Selected Work</span>
+        <h2 class="section-title">Featured Projects</h2>
+        <p class="section-description">
+          A selection of projects exploring machine learning,
+          data analysis, software development and practical technology.
+        </p>
+      </div>
+
+      <div class="project-grid">
+
+        <article class="project-card">
+          <div class="project-image">🧠</div>
+
+          <div class="project-body">
+            <h3>Brain Tumor Detection</h3>
+
+            <p>
+              Deep learning image classification system using CNN
+              architecture for detecting and classifying different type of brain tumors.
+            </p>
+
+            <ul class="project-highlights">
+              <li>Image preprocessing and normalization</li>
+              <li>Data augmentation and CNN training</li>
+              <li>TensorFlow and Keras implementation</li>
+            </ul>
+
+            <div class="quick-tech">
+              <span class="tag">Python</span>
+              <span class="tag">TensorFlow</span>
+              <span class="tag">CNN</span>
+            </div>
+
+            <div class="card-footer">
+                <span>Deep Learning</span>
+                <a
+                  href="https://github.com/uzaam07/Brain-Tumor-Detection"
+                  target="_blank"
+                  class="card-link"
+                >
+                View Project ↗
+                </a>
+              </div>
+          </div>
+        </article>
+
+
+        <article class="project-card">
+          <div class="project-image">🚕</div>
+
+          <div class="project-body">
+            <h3>Online Rural Banking System</h3>
+
+              <p>
+                  A cloud-based banking system designed to provide basic banking
+                  services and improve accessibility for users in rural areas.
+              </p>
+
+              <ul class="project-highlights">
+                <li>Designed an online banking system for rural users</li>
+                <li>Focused on accessible and efficient banking services</li>
+                <li>Explored cloud computing concepts and system architecture</li>
+                </ul>
+
+              <div class="quick-tech">
+                <span class="tag">Cloud Computing</span>
+                <span class="tag">Web Application</span>
+                <span class="tag">Database</span>
+                </div>
+
+              <div class="card-footer">
+                <span>Cloud Computing</span>
+                <a
+                  href="https://github.com/uzaam07/Online-Rural-Banking-System"
+                  target="_blank"
+                  class="card-link"
+                >
+                View Project ↗
+                </a>
+              </div>
+            </div>
+        </article>
+
+
+        <article class="project-card">
+          <div class="project-image">🍱</div>
+
+          <div class="project-body">
+            <h3>Food Donation Application</h3>
+
+            <p>
+              Application concept connecting food donors with NGOs
+              to improve access and distribution of available food.
+            </p>
+
+            <ul class="project-highlights">
+              <li>Donor and NGO connection system</li>
+              <li>Real-world social impact concept</li>
+              <li>Application workflow design</li>
+            </ul>
+
+            <div class="quick-tech">
+              <span class="tag">Mobile App</span>
+              <span class="tag">Database</span>
+              <span class="tag">Software</span>
+            </div>
+
+            <div class="card-footer">
+                <span>Application</span>
+                <a
+                  href="https://github.com/uzaam07/Food-Donation-Application"
+                  target="_blank"
+                  class="card-link"
+                >
+                View Project ↗
+                </a>
+              </div>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="buttons">
+        <button class="btn" onclick="showPage('projects')">
+          View All Projects →
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+
+  <section>
+    <div class="container">
+
+      <div class="section-header">
+        <span class="eyebrow">Technical Skills</span>
+        <h2 class="section-title">Technologies I work with</h2>
+
+        <p class="section-description">
+          Building my skills across programming, analytics,
+          artificial intelligence, databases and web technologies.
+        </p>
+      </div>
+
+      <div class="skills-grid">
+
+        <div class="skill-card">
+          <div class="skill-icon">💻</div>
+          <h3>Programming</h3>
+          <div class="skill-count">4+ Technologies</div>
+
+          <div class="skill">
+            <div class="skill-row"><span>Python</span><span>88%</span></div>
+            <div class="progress"><span style="width:88%"></span></div>
+          </div>
+
+          <div class="skill">
+            <div class="skill-row"><span>C++</span><span>75%</span></div>
+            <div class="progress"><span style="width:75%"></span></div>
+          </div>
+
+          <div class="skill">
+            <div class="skill-row"><span>C</span><span>72%</span></div>
+            <div class="progress"><span style="width:72%"></span></div>
+          </div>
+
+          <div class="skill">
+            <div class="skill-row"><span>Java</span><span>60%</span></div>
+            <div class="progress"><span style="width:60%"></span></div>
+          </div>
+        </div>
+
+
+        <div class="skill-card">
+          <div class="skill-icon">📊</div>
+          <h3>Data & Analytics</h3>
+          <div class="skill-count">5+ Tools & Skills</div>
+
+          <div class="skill">
+            <div class="skill-row"><span>Data Analysis</span><span>85%</span></div>
+            <div class="progress"><span style="width:85%"></span></div>
+          </div>
+
+          <div class="skill">
+            <div class="skill-row"><span>NumPy</span><span>82%</span></div>
+            <div class="progress"><span style="width:82%"></span></div>
+          </div>
+
+          <div class="skill">
+            <div class="skill-row"><span>Excel</span><span>80%</span></div>
+            <div class="progress"><span style="width:80%"></span></div>
+          </div>
+
+          <div class="skill">
+            <div class="skill-row"><span>EDA</span><span>84%</span></div>
+            <div class="progress"><span style="width:84%"></span></div>
+          </div>
+        </div>
+
+
+        <div class="skill-card">
+          <div class="skill-icon">🤖</div>
+          <h3>AI & Machine Learning</h3>
+          <div class="skill-count">5+ Technologies</div>
+
+          <div class="skill">
+            <div class="skill-row"><span>Machine Learning</span><span>82%</span></div>
+            <div class="progress"><span style="width:82%"></span></div>
+          </div>
+
+          <div class="skill">
+            <div class="skill-row"><span>TensorFlow</span><span>78%</span></div>
+            <div class="progress"><span style="width:78%"></span></div>
+          </div>
+
+          <div class="skill">
+            <div class="skill-row"><span>Keras</span><span>80%</span></div>
+            <div class="progress"><span style="width:80%"></span></div>
+          </div>
+
+          <div class="skill">
+            <div class="skill-row"><span>Deep Learning</span><span>76%</span></div>
+            <div class="progress"><span style="width:76%"></span></div>
+          </div>
+        </div>
+
+
+        <div class="skill-card">
+          <div class="skill-icon">🗃️</div>
+          <h3>Database</h3>
+          <div class="skill-count">5+ Technologies</div>
+
+          <div class="skill">
+            <div class="skill-row"><span>MySQL</span><span>82%</span></div>
+            <div class="progress"><span style="width:82%"></span></div>
+          </div>
+
+          <div class="skill">
+            <div class="skill-row"><span>SQL</span><span>75%</span></div>
+            <div class="progress"><span style="width:75%"></span></div>
+          </div>
+
+          <div class="skill">
+            <div class="skill-row"><span>Database Design</span><span>65%</span></div>
+            <div class="progress"><span style="width:65%"></span></div>
+          </div>
+
+          <div class="skill">
+            <div class="skill-row"><span>Data Warehousing</span><span>76%</span></div>
+            <div class="progress"><span style="width:76%"></span></div>
+          </div>
+        </div>
+
+
+        <div class="skill-card">
+          <div class="skill-icon">☁️</div>
+          <h3>Cloud & Backend</h3>
+          <div class="skill-count">5+ Technologies</div>
+
+          <div class="skill">
+            <div class="skill-row"><span>AWS</span><span>70%</span></div>
+            <div class="progress"><span style="width:70%"></span></div>
+          </div>
+
+          <div class="skill">
+            <div class="skill-row"><span>REST APIs</span><span>72%</span></div>
+            <div class="progress"><span style="width:72%"></span></div>
+          </div>
+
+          <div class="skill">
+            <div class="skill-row"><span>Backend Development</span><span>65%</span></div>
+            <div class="progress"><span style="width:65%"></span></div>
+          </div>
+
+          <div class="skill">
+            <div class="skill-row"><span>Cloud Computing</span><span>68%</span></div>
+            <div class="progress"><span style="width:68%"></span></div>
+          </div>
+        </div>
+
+
+        <div class="skill-card">
+          <div class="skill-icon">⚙️</div>
+          <h3>Tools & Development</h3>
+          <div class="skill-count">5+ Tools & Skills</div>
+
+          <div class="skill">
+            <div class="skill-row"><span>Git & Github</span><span>80%</span></div>
+            <div class="progress"><span style="width:80%"></span></div>
+          </div>
+
+          <div class="skill">
+            <div class="skill-row"><span>VS Code</span><span>90%</span></div>
+            <div class="progress"><span style="width:90%"></span></div>
+          </div>
+
+          <div class="skill">
+            <div class="skill-row"><span>Software Engineering</span><span>60%</span></div>
+            <div class="progress"><span style="width:60%"></span></div>
+          </div>
+
+          <div class="skill">
+            <div class="skill-row"><span>Juypter</span><span>68%</span></div>
+            <div class="progress"><span style="width:68%"></span></div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="container">
+
+      <div class="section-header">
+        <span class="eyebrow">Achievements & Journey</span>
+        <h2 class="section-title">Learning through projects and practice</h2>
+      </div>
+
+      <div class="achievement-grid">
+
+        <div class="achievement">
+          <div class="achievement-number">2025</div>
+          <h3>BCA Graduate</h3>
+          <p>Completed Bachelor of Computer Applications at VIT.</p>
+        </div>
+
+        <div class="achievement">
+          <div class="achievement-number">5+</div>
+          <h3>Technical Projects</h3>
+          <p>Projects across AI, ML, software, cloud and databases.</p>
+        </div>
+
+        <div class="achievement">
+          <div class="achievement-number">AI/ML</div>
+          <h3>Internship Experience</h3>
+          <p>Hands-on experience with Python and machine learning workflows.</p>
+        </div>
+
+        <div class="achievement">
+          <div class="achievement-number">∞</div>
+          <h3>Always Learning</h3>
+          <p>Continuously improving through projects and certifications.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="container">
+
+      <div class="section-header">
+        <span class="eyebrow">My Approach</span>
+        <h2 class="section-title">What I bring to a team</h2>
+      </div>
+
+      <div class="testimonial-grid">
+
+        <article class="testimonial">
+          <p class="quote">
+            “I enjoy breaking down complex problems, learning the
+            technology required, and building a practical solution step by step.”
+          </p>
+
+          <div class="person">
+            <div class="avatar">US</div>
+            <div>
+              <strong>Uzaam Shaad</strong>
+              <span>Software & Data Enthusiast</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="testimonial">
+          <p class="quote">
+            “As a fresher, my focus is simple: learn quickly,
+            contribute consistently, and grow by working on meaningful
+            problems with experienced teams.”
+          </p>
+
+          <div class="person">
+            <div class="avatar">AI</div>
+            <div>
+              <strong>Continuous Growth</strong>
+              <span>Learning through building</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+
+<!-- ============================================
+     ABOUT
+============================================ -->
+<main class="page" id="about">
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">About Me</span>
+
+      <h1>
+        Curious about technology.<br>
+        <span class="muted-text">Focused on building.</span>
+      </h1>
+
+      <p>
+        A BCA graduate exploring software development, data analytics,
+        artificial intelligence and machine learning.
+      </p>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="container about-grid">
+
+      <aside class="about-sidebar">
+        <h3>My Story</h3>
+        <p style="color:#777;font-size:14px;">
+          From learning programming fundamentals to building
+          practical projects with data and AI.
+        </p>
+      </aside>
+
+      <div class="about-content">
+        <p>
+          I'm Uzaam Shaad, a Bachelor of Computer Applications graduate
+          with a strong interest in technology and problem-solving.
+          I enjoy understanding how systems work and using software
+          and data to create useful solutions.
+        </p>
+
+        <p>
+          My technical journey has introduced me to Python, C, C++,
+          SQL, databases, web development, data analysis, machine
+          learning and deep learning. I have explored these technologies
+          through academic projects and hands-on internship work.
+        </p>
+
+        <p>
+          I am particularly interested in opportunities where I can
+          learn from experienced professionals, contribute to real-world
+          projects, and continue developing as a software or data
+          professional.
+        </p>
+
+        <div class="education-card">
+          <h3>Bachelor of Computer Applications</h3>
+          <p>Vellore Institute of Technology</p>
+          <p>Computer Applications · Programming · Databases · Cloud · AI/ML</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="container">
+
+      <div class="section-header">
+        <span class="eyebrow">Core Interests</span>
+        <h2 class="section-title">Areas I'm exploring</h2>
+      </div>
+
+      <div class="skills-grid">
+
+        <div class="skill-card">
+          <div class="skill-icon">⚙️</div>
+          <h3>Software Development</h3>
+          <p style="color:#888;font-size:14px;">
+            Building applications with programming fundamentals,
+            object-oriented concepts and modern development tools.
+          </p>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-icon">📈</div>
+          <h3>Data Analytics</h3>
+          <p style="color:#888;font-size:14px;">
+            Cleaning data, finding patterns, performing exploratory
+            analysis and communicating useful insights.
+          </p>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-icon">🧠</div>
+          <h3>Artificial Intelligence</h3>
+          <p style="color:#888;font-size:14px;">
+            Exploring machine learning and deep learning models
+            for solving classification and prediction problems.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+
+<!-- ============================================
+     EXPERIENCE
+============================================ -->
+<main class="page" id="experience">
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Experience</span>
+      <h1>Learning by<br><span class="muted-text">doing.</span></h1>
+
+      <p>
+        Building technical experience through internships,
+        academic work and hands-on projects.
+      </p>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="container">
+
+      <div class="section-header">
+        <span class="eyebrow">Professional Journey</span>
+        <h2 class="section-title">Experience & Education</h2>
+      </div>
+
+      <div class="experience-list">
+
+        <article class="experience-item">
+          <div class="experience-date">
+            Internship<br>
+            AI / Machine Learning
+          </div>
+
+          <div class="experience-content">
+            <h2>AI/ML with Python Intern</h2>
+            <div class="company">Machine Learning & Python Internship</div>
+
+            <p>
+              Worked on practical Python and machine learning tasks,
+              developing experience with data preparation, analysis,
+              model building and evaluation.
+            </p>
+
+            <ul class="bullet-list">
+              <li>Worked with Python for data processing and analysis</li>
+              <li>Explored machine learning algorithms and predictive models</li>
+              <li>Applied data preprocessing and feature preparation techniques</li>
+              <li>Completed project work including Uber ride analysis and prediction</li>
+            </ul>
+
+            <div class="quick-tech">
+              <span class="tag">Python</span>
+              <span class="tag">Pandas</span>
+              <span class="tag">NumPy</span>
+              <span class="tag">Machine Learning</span>
+            </div>
+          </div>
+        </article>
+
+
+        <article class="experience-item">
+          <div class="experience-date">
+            2022 — 2025<br>
+            Education
+          </div>
+
+          <div class="experience-content">
+            <h2>Bachelor of Computer Applications</h2>
+            <div class="company">Vellore Institute of Technology</div>
+
+            <p>
+              Developed a foundation across programming, databases,
+              software development, cloud computing, data analytics
+              and artificial intelligence.
+            </p>
+
+            <ul class="bullet-list">
+              <li>Built academic projects using programming and database technologies</li>
+              <li>Explored machine learning and deep learning concepts</li>
+              <li>Worked with MySQL, Python and object-oriented programming</li>
+              <li>Completed projects across cloud computing and data mining</li>
+            </ul>
+
+            <div class="quick-tech">
+              <span class="tag">Python</span>
+              <span class="tag">C/C++</span>
+              <span class="tag">MySQL</span>
+              <span class="tag">Cloud</span>
+              <span class="tag">AI/ML</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+
+<!-- ============================================
+     PROJECTS
+============================================ -->
+<main class="page" id="projects">
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Projects</span>
+
+      <h1>
+        Things I've<br>
+        <span class="muted-text">built and explored.</span>
+      </h1>
+
+      <p>
+        A collection of projects across artificial intelligence,
+        data analytics, databases, cloud computing and software development.
+      </p>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="container">
+
+      <div class="all-projects">
+
+        <article class="large-project">
+          <div class="project-top">
+            <span>01</span>
+            <span>AI / Deep Learning</span>
+          </div>
+
+          <div>
+            <h2>Brain Tumor Detection</h2>
+
+            <p>
+              CNN-based deep learning project using image preprocessing,
+              augmentation and neural network training to classify brain images.
+            </p>
+
+            <div class="quick-tech">
+              <span class="tag">TensorFlow</span>
+              <span class="tag">Keras</span>
+              <span class="tag">OpenCV</span>
+              <span class="tag">Python</span>
+            </div>
+          </div>
+          <div class="card-footer">
+              <a
+                href="https://github.com/uzaam07/Brain-Tumor-Detection"
+                target="_blank"
+                class="card-link"
+              >
+              View Project ↗
+              </a>
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+                <path d="M9 18c-4.51 2-5-2-7-2"></path>
+            </svg>
+          </div>
+        </article>
+
+
+        <article class="large-project">
+          <div class="project-top">
+            <span>02</span>
+            <span>Cloud Computing</span>
+          </div>
+
+          <div>
+            <h2>Regional Rural Banking Prototype</h2>
+
+            <p>
+              Cloud computing project exploring how cloud-based
+              infrastructure can support banking services and applications.
+            </p>
+
+            <div class="quick-tech">
+              <span class="tag">Cloud Computing</span>
+              <span class="tag">Architecture</span>
+              <span class="tag">Technology</span>
+            </div>
+          </div>
+          <div class="card-footer">
+              <a
+                href="https://github.com/uzaam07/Online-Rural-Banking-System"
+                target="_blank"
+                class="card-link"
+              >
+              View Project ↗
+              </a>
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+                <path d="M9 18c-4.51 2-5-2-7-2"></path>
+              </svg>
+            </div>
+        </article>
+
+
+        <article class="large-project">
+          <div class="project-top">
+            <span>03</span>
+            <span>Application</span>
+          </div>
+
+          <div>
+            <h2>Food Donation Application</h2>
+
+            <p>
+              Application designed around connecting food donors
+              and NGOs to support better food distribution.
+            </p>
+
+            <div class="quick-tech">
+              <span class="tag">App Development</span>
+              <span class="tag">Database</span>
+              <span class="tag">Software Design</span>
+            </div>
+          </div>
+          <div class="card-footer">
+              <a
+                href="https://github.com/uzaam07/Food-Donation-Application"
+                target="_blank"
+                class="card-link"
+              >
+              View Project ↗
+              </a>
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+                <path d="M9 18c-4.51 2-5-2-7-2"></path>
+              </svg>
+            </div>
+        </article>
+
+
+        <article class="large-project">
+          <div class="project-top">
+            <span>04</span>
+            <span>OOP</span>
+          </div>
+
+          <div>
+            <h2>Student Management System</h2>
+
+            <p>
+              Object-oriented application for managing student records
+              and core administrative operations.
+            </p>
+
+            <div class="quick-tech">
+              <span class="tag">OOP</span>
+              <span class="tag">Programming</span>
+              <span class="tag">Database Concepts</span>
+            </div>
+          </div>
+          <div class="card-footer">
+              <a
+                href="https://github.com/uzaam07/Student-Management-System"
+                target="_blank"
+                class="card-link"
+              >
+              View Project ↗
+              </a>
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+                <path d="M9 18c-4.51 2-5-2-7-2"></path>
+              </svg>
+            </div>
+        </article>
+
+
+        <article class="large-project">
+          <div class="project-top">
+            <span>05</span>
+            <span>Database</span>
+          </div>
+
+          <div>
+            <h2>Telephone Directory System</h2>
+
+            <p>
+              MySQL database project for storing, organizing
+              and retrieving telephone directory information.
+            </p>
+
+            <div class="quick-tech">
+              <span class="tag">MySQL</span>
+              <span class="tag">SQL</span>
+              <span class="tag">DBMS</span>
+            </div>
+          </div>
+          <div class="card-footer">
+              <a
+                href="https://github.com/uzaam07/telephone-directory-management-system"
+                target="_blank"
+                class="card-link"
+              >
+              View Project ↗
+              </a>
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+                <path d="M9 18c-4.51 2-5-2-7-2"></path>
+              </svg>
+            </div>
+        </article>
+
+        <article class="large-project">
+          <div class="project-top">
+            <span>06</span>
+            <span>Java</span>
+          </div>
+
+          <div>
+            <h2>Hospital Management System</h2>
+
+            <p>
+              Comprehensive healthcare software platform coordinating patient
+              and management workflows adhering to software engineering SDLC.
+            </p>
+
+            <div class="quick-tech">
+              <span class="tag">MySQL</span>
+              <span class="tag">Java</span>
+              <span class="tag">SDLC</span>
+              <span class="tag">API Testing</span>
+            </div>
+          </div>
+          <div class="card-footer">
+              <a
+                href="https://github.com/uzaam07/Hospital-Management-System"
+                target="_blank"
+                class="card-link"
+              >
+              View Project ↗
+              </a>
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+                <path d="M9 18c-4.51 2-5-2-7-2"></path>
+              </svg>
+            </div>
+        </article>
+
+
+        <article class="large-project">
+          <div class="project-top">
+            <span>07</span>
+            <span>Data Mining</span>
+          </div>
+
+          <div>
+            <h2>Drug Discovery & Treatment Personalization</h2>
+
+            <p>
+              Data mining and data warehousing project exploring
+              data-driven approaches to drug discovery and personalized treatment.
+            </p>
+
+            <div class="quick-tech">
+              <span class="tag">Data Mining</span>
+              <span class="tag">Data Warehousing</span>
+              <span class="tag">Analytics</span>
+            </div>
+          </div>
+
+          <span class="card-link">Explore Project ↗</span>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+
+<!-- ============================================
+     BLOG
+============================================ -->
+<main class="page" id="blog">
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Blog</span>
+
+      <h1>
+        Thoughts,<br>
+        <span class="muted-text">insights & learning.</span>
+      </h1>
+
+      <p>
+        Notes and articles from my journey through programming,
+        data analytics, artificial intelligence and technology.
+      </p>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="container">
+
+      <div class="blog-grid">
+
+        <article class="blog-card">
+          <div>
+            <div class="blog-meta">Data Analytics · 5 min read</div>
+            <h2>What I Learned From Cleaning Messy Data</h2>
+            <p>
+              Exploring why data cleaning is one of the most important
+              stages before analysis and decision-making.
+            </p>
+          </div>
+
+          <div>
+            <div class="quick-tech">
+              <span class="tag">Data Cleaning</span>
+              <span class="tag">Python</span>
+              <span class="tag">EDA</span>
+            </div>
+            <div class="card-link" style="margin-top:20px;">Read More →</div>
+          </div>
+        </article>
+
+
+        <article class="blog-card">
+          <div>
+            <div class="blog-meta">Machine Learning · 6 min read</div>
+            <h2>My Journey Building a Brain Tumor Detection Model</h2>
+            <p>
+              From image preprocessing to CNN architecture,
+              a look at the key stages of a deep learning project.
+            </p>
+          </div>
+
+          <div>
+            <div class="quick-tech">
+              <span class="tag">CNN</span>
+              <span class="tag">TensorFlow</span>
+              <span class="tag">Keras</span>
+            </div>
+            <div class="card-link" style="margin-top:20px;">Read More →</div>
+          </div>
+        </article>
+
+
+        <article class="blog-card">
+          <div>
+            <div class="blog-meta">Career · 4 min read</div>
+            <h2>Starting My Journey as a Fresher in Tech</h2>
+            <p>
+              My approach to learning, building projects,
+              gaining certifications and preparing for opportunities.
+            </p>
+          </div>
+
+          <div>
+            <div class="quick-tech">
+              <span class="tag">Career</span>
+              <span class="tag">Learning</span>
+              <span class="tag">Technology</span>
+            </div>
+            <div class="card-link" style="margin-top:20px;">Read More →</div>
+          </div>
+        </article>
+
+      </div>
+
+      <div style="
+        margin-top:70px;
+        text-align:center;
+        padding:55px 20px;
+        border:1px solid var(--line);
+      ">
+        <span class="eyebrow">More Coming Soon</span>
+        <h2 style="font-size:30px;margin-top:10px;">
+          More things I'm learning and building.
+        </h2>
+        <p style="color:#888;margin-top:12px;">
+          I'll continue sharing insights from my projects and technology journey.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+
+<!-- ============================================
+     CONTACT
+============================================ -->
+<main class="page" id="contact">
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Contact</span>
+
+      <h1>
+        Let's work on<br>
+        <span class="muted-text">something meaningful.</span>
+      </h1>
+
+      <p>
+        Open to opportunities where I can learn, contribute
+        and grow as a technology professional.
+      </p>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="container contact-grid">
+
+      <div class="contact-info">
+        <h2>Let's Connect</h2>
+
+        <p>
+          Whether you have an opportunity, project, internship
+          or just want to connect, feel free to reach out.
+        </p>
+
+        <div class="contact-methods">
+
+          <div class="contact-method">
+            <small>EMAIL</small>
+            <a href="mailto:uzaamshaad6@gmail.com">
+              uzaamshaad6@gmail.com
+            </a>
+          </div>
+
+          <div class="contact-method">
+            <small>LINKEDIN</small>
+            <span>linkedin.com/in/uzaamshaad</span>
+          </div>
+
+          <div class="contact-method">
+            <small>GITHUB</small>
+            <span>github.com/uzaam07</span>
+          </div>
+
+          <div class="contact-method">
+            <small>STATUS</small>
+            <span>Open to opportunities</span>
+          </div>
+
+        </div>
+      </div>
+
+
+      <form
+  class="contact-form"
+  action="mailto:uzaamshaad6@gmail.com"
+  method="post"
+  enctype="text/plain"
+>
+  <div class="form-group">
+    <label>Your Name</label>
+    <input
+      type="text"
+      name="name"
+      placeholder="Enter your name"
+      required
+    >
+  </div>
+
+  <div class="form-group">
+    <label>Email Address</label>
+    <input
+      type="email"
+      name="email"
+      placeholder="your.email@example.com"
+      required
+    >
+  </div>
+
+  <div class="form-group">
+    <label>Subject</label>
+    <input
+      type="text"
+      name="subject"
+      placeholder="What's this about?"
+      required
+    >
+  </div>
+
+  <div class="form-group">
+    <label>Message</label>
+    <textarea
+      name="message"
+      placeholder="Tell me about your opportunity or project..."
+      required
+    ></textarea>
+  </div>
+
+  <button class="btn btn-primary" type="submit">
+    Send Message
+  </button>
+</form>
+
+    </div>
+  </section>
+
+</main>
+
+
+<!-- ============================================
+     FOOTER
+============================================ -->
+<footer>
+
+  <div class="container">
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <h2>Uzaam Shaad K.</h2>
+
+        <p>
+          BCA graduate interested in software development,
+          data analytics, artificial intelligence and machine learning.
+        </p>
+      </div>
+
+      <div class="footer-column">
+        <h3>Navigation</h3>
+
+        <button onclick="showPage('home')">Home</button>
+        <button onclick="showPage('about')">About</button>
+        <button onclick="showPage('experience')">Experience</button>
+        <button onclick="showPage('projects')">Projects</button>
+        <button onclick="showPage('blog')">Blog</button>
+      </div>
+
+      <div class="footer-column">
+        <h3>Connect</h3>
+
+        <a href="mailto:uzaamshaad6@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/uzaamshaad" target="_blank" rel="noopener noreferrer" class="footer-nav-anchor">LinkedIn</a>
+        <a href="https://github.com/uzaam07" target="_blank" rel="noopener noreferrer" class="footer-nav-anchor">GitHub</a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Uzaam Shaad K. All rights reserved.</span>
+      <span>Designed & Built by Uzaam Shaad K</span>
+    </div>
+
+  </div>
+
+</footer>
+
+
+<script>
+  /* ============================================
+     PAGE NAVIGATION
+  ============================================ */
+
+  const pages = document.querySelectorAll(".page");
+  const navButtons = document.querySelectorAll(".nav-link");
+  const navLinks = document.getElementById("navLinks");
+  const menuToggle = document.getElementById("menuToggle");
+
+  function showPage(pageId) {
+    pages.forEach(page => {
+      page.classList.remove("active");
+    });
+
+    const selectedPage = document.getElementById(pageId);
+
+    if (selectedPage) {
+      selectedPage.classList.add("active");
+    }
+
+    navButtons.forEach(button => {
+      button.classList.remove("active");
+
+      if (button.dataset.page === pageId) {
+        button.classList.add("active");
+      }
+    });
+
+    navLinks.classList.remove("open");
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+    history.replaceState(null, "", "#" + pageId);
+  }
+
+  
+  /* ============================================
+     NAVIGATION BUTTON EVENTS
+  ============================================ */
+
+  navButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      showPage(button.dataset.page);
+    });
+  });
+
+
+  /* ============================================
+     MOBILE MENU
+  ============================================ */
+
+  menuToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("open");
+  });
+
+
+  /* ============================================
+     HASH ROUTING
+  ============================================ */
+
+  function loadFromHash() {
+    const hash = window.location.hash.replace("#", "");
+
+    const validPages = [
+      "home",
+      "about",
+      "experience",
+      "projects",
+      "blog",
+      "contact"
+    ];
+
+    if (validPages.includes(hash)) {
+      pages.forEach(page => page.classList.remove("active"));
+      document.getElementById(hash).classList.add("active");
+
+      navButtons.forEach(button => {
+        button.classList.toggle(
+          "active",
+          button.dataset.page === hash
+        );
+      });
+    }
+  }
+
+  window.addEventListener("hashchange", loadFromHash);
+  loadFromHash();
+
+
+  /* ============================================
+     CONTACT FORM
+  ============================================ */
+
+  document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const button = this.querySelector("button");
+    const originalText = button.textContent;
+
+    button.textContent = "Message Ready ✓";
+
+    setTimeout(() => {
+      button.textContent = originalText;
+      this.reset();
+    }, 2500);
+  });
+
+
+  /* ============================================
+     CURRENT YEAR
+  ============================================ */
+
+  document.getElementById("year").textContent =
+    new Date().getFullYear();
+
+  
+
+const canvas = document.getElementById("ferrofluid-canvas");
+const ctx = canvas.getContext("2d");
+
+let width;
+let height;
+let particles = [];
+
+function resizeCanvas() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  width = canvas.parentElement.clientWidth;
+  height = canvas.parentElement.clientHeight;
+
+  canvas.width = width * dpr;
+  canvas.height = height * dpr;
+
+  canvas.style.width = width + "px";
+  canvas.style.height = height + "px";
+
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  createParticles();
+}
+
+class Particle {
+  constructor() {
+    this.reset();
+  }
+
+  reset() {
+    this.x = Math.random() * width;
+    this.y = Math.random() * height;
+
+    this.baseX = this.x;
+    this.baseY = this.y;
+
+    this.size = Math.random() * 2.2 + 0.5;
+
+    this.speedX = (Math.random() - 0.5) * 0.35;
+    this.speedY = (Math.random() - 0.5) * 0.35;
+
+    this.angle = Math.random() * Math.PI * 2;
+    this.angleSpeed = (Math.random() - 0.5) * 0.015;
+  }
+
+  update() {
+    this.angle += this.angleSpeed;
+
+    this.x +=
+      this.speedX +
+      Math.sin(this.angle) * 0.25;
+
+    this.y +=
+      this.speedY +
+      Math.cos(this.angle) * 0.25;
+
+    if (this.x < -20) this.x = width + 20;
+    if (this.x > width + 20) this.x = -20;
+
+    if (this.y < -20) this.y = height + 20;
+    if (this.y > height + 20) this.y = -20;
+  }
+
+  draw() {
+    ctx.beginPath();
+
+    ctx.arc(
+      this.x,
+      this.y,
+      this.size,
+      0,
+      Math.PI * 2
+    );
+
+    ctx.fillStyle = "rgba(255,255,255,0.55)";
+    ctx.fill();
+  }
+}
+
+function createParticles() {
+  particles = [];
+
+  const particleCount =
+    Math.min(900, Math.floor((width * height) / 8500));
+
+  for (let i = 0; i < particleCount; i++) {
+    particles.push(new Particle());
+  }
+}
+
+function connectParticles() {
+  const maxDistance = 90;
+
+  for (let i = 0; i < particles.length; i++) {
+
+    for (
+      let j = i + 1;
+      j < particles.length;
+      j++
+    ) {
+
+      const dx =
+        particles[i].x - particles[j].x;
+
+      const dy =
+        particles[i].y - particles[j].y;
+
+      const distance =
+        Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < maxDistance) {
+
+        const opacity =
+          (1 - distance / maxDistance) * 0.18;
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+          particles[i].x,
+          particles[i].y
+        );
+
+        ctx.lineTo(
+          particles[j].x,
+          particles[j].y
+        );
+
+        ctx.strokeStyle =
+          `rgba(255,255,255,${opacity})`;
+
+        ctx.lineWidth = 0.5;
+
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+function animate() {
+
+  ctx.clearRect(
+    0,
+    0,
+    width,
+    height
+  );
+
+  /* Soft glow */
+  const gradient = ctx.createRadialGradient(
+    width * 0.5,
+    height * 0.45,
+    0,
+    width * 0.5,
+    height * 0.45,
+    Math.max(width, height) * 0.7
+  );
+
+  gradient.addColorStop(
+    0,
+    "rgba(90,90,90,0.15)"
+  );
+
+  gradient.addColorStop(
+    1,
+    "rgba(0,0,0,0)"
+  );
+
+  ctx.fillStyle = gradient;
+
+  ctx.fillRect(
+    0,
+    0,
+    width,
+    height
+  );
+
+  particles.forEach(particle => {
+    particle.update();
+    particle.draw();
+  });
+
+  connectParticles();
+
+  requestAnimationFrame(animate);
+}
+
+window.addEventListener(
+  "resize",
+  resizeCanvas
+);
+
+resizeCanvas();
+animate();
+</script>
+</body>
+</html>
