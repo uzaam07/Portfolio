@@ -115,7 +115,7 @@
     header {
       height: 76px;
       border-bottom: 1px solid var(--line);
-      background: rgba(8, 8, 8, .92);
+      background: rgba(8, 8, 8, 0.92);
       backdrop-filter: blur(12px);
       position: sticky;
       top: 0;
@@ -216,54 +216,6 @@
       background: #dedede;
     }
 
-    /* ==========================================================================
-       Floating Left Social Bar (Exact Reference Signature Feature)
-       ========================================================================== */
-    .floating-social-bar {
-      position: fixed;
-      left: 2rem;
-      top: 50%;
-      bottom: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.25rem;
-      z-index: 50;
-    }
-
-    .floating-social-link {
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: var(--radius-full);
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-secondary);
-      box-shadow: var(--shadow-sm);
-      backdrop-filter: var(--glass-blur);
-      transition: var(--transition-smooth);
-      position: relative;
-    }
-
-    .floating-social-link:hover {
-      border-color: var(--primary);
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(224, 226, 221, 0.329);
-    }
-
-    .floating-social-line {
-      width: 1.5px;
-      height: 100px;
-      background: linear-gradient(to bottom, var(--border-medium), transparent);
-    }
-
-    @media (max-width: 1080px) {
-      .floating-social-bar {
-        display: none;
-      }
-    }
 
     /* ================================
    FERROFLUID BACKGROUND
@@ -288,24 +240,7 @@
   width: 100%;
   height: 100%;
   display: block;
-  opacity: 0.65;
-}
-
-/* Dark gradient over the animation */
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-
-  background:
-    radial-gradient(
-      circle at 50% 45%,
-      transparent 0%,
-      rgba(81, 68, 68, 0.18) 45%,
-      rgba(10, 10, 10, 0.82) 100%
-    );
+  opacity: 2.65;
 }
 
 /* Keep content above animation */
@@ -1110,8 +1045,8 @@
     }
   
 /* ============================================================
-   PRO PORTFOLIO UI LAYER
-   Single-file implementation of premium interaction patterns:
+   UI LAYER
+   interaction patterns:
    spotlight cards, magnetic buttons, scroll reveal, command menu,
    glass navigation, animated grid, marquee and project modal.
    ============================================================ */
@@ -1124,7 +1059,7 @@
 }
 body{
   background:
-    radial-gradient(circle at 50% -10%, rgba(255,255,255,.055), transparent 34%),
+    radial-gradient(circle at 50% -10%, rgba(33, 173, 112, 0.437), transparent 34%),
     var(--bg);
 }
 body::before{
@@ -1308,6 +1243,69 @@ header::after{
   .cursor-orb{display:none}
 }
 
+
+/* React Bits Pill Nav-inspired navigation + theme control */
+.floating-social-bar,.floating-social-link,.floating-social-line{display:none!important}
+.pill-nav{display:flex;align-items:center;justify-content:center}
+.pill-nav-shell{padding:5px;border:1px solid rgba(255,255,255,.12);border-radius:999px;background:rgba(18,18,18,.62);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 10px 35px rgba(0,0,0,.22)}
+.pill-nav-track{position:relative;display:flex;align-items:center;gap:2px}
+.pill-nav-link{position:relative;z-index:1;border:0;background:transparent;color:#858585;padding:10px 16px;border-radius:999px;font:inherit;font-size:12px;letter-spacing:.02em;cursor:pointer;transition:color .3s ease,transform .3s ease}
+.pill-nav-link:hover{color:#fff;transform:translateY(-1px)}
+.pill-nav-link.active{color:#050505}
+.pill-nav-indicator{position:absolute;z-index:0;top:2px;bottom:2px;left:0;border-radius:999px;background:#fff;box-shadow:0 4px 20px rgba(255,255,255,.13);transition:transform .48s cubic-bezier(.22,1,.36,1),width .48s cubic-bezier(.22,1,.36,1)}
+.nav-actions{display:flex;align-items:center;gap:9px}
+.theme-toggle{width:42px;height:42px;border:1px solid rgba(255,255,255,.15);border-radius:50%;background:rgba(18,18,18,.72);color:#fff;display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(14px);transition:transform .3s ease,border-color .3s ease,background .3s ease,color .3s ease}
+.theme-toggle:hover{transform:translateY(-2px) rotate(8deg);border-color:rgba(255,255,255,.38)}
+.theme-icon{font-size:17px;line-height:1}
+html.light-theme{--bg:#f4f4f1;--text:#111;--muted:#666;--line:#deded9}
+html.light-theme body{background:radial-gradient(circle at 50% -10%,rgba(0,0,0,.045),transparent 34%),var(--bg);color:var(--text)}
+html.light-theme body::before{opacity:.1;background-image:linear-gradient(rgba(0,0,0,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.035) 1px,transparent 1px)}
+html.light-theme header{background:rgba(244,244,241,.78)!important}
+html.light-theme .pill-nav-shell,html.light-theme .theme-toggle{background:rgba(255,255,255,.72);border-color:rgba(0,0,0,.12)}
+html.light-theme .pill-nav-link{color:#777} html.light-theme .pill-nav-link:hover{color:#111} html.light-theme .pill-nav-link.active{color:#fff}
+html.light-theme .pill-nav-indicator{background:#111}
+html.light-theme .theme-toggle{color:#111}
+html.light-theme .project-card,html.light-theme .skill-card,html.light-theme .large-project,html.light-theme .blog-card,html.light-theme .hero-card,html.light-theme .contact-form,html.light-theme .testimonial{background:#fff;border-color:#deded9}
+html.light-theme .tag{border-color:#d8d8d3;color:#555} html.light-theme .tag:hover{background:#111;color:#fff;border-color:#111}
+html.light-theme .btn{border-color:#cfcfca;color:#111} html.light-theme .btn-primary{background:#111;color:#fff;border-color:#111}
+@media(max-width:900px){
+  .pill-nav-shell{display:block;position:absolute;top:64px;right:15px;opacity:0;pointer-events:none;transform:translateY(-8px) scale(.98);transition:.3s ease;border-radius:18px}
+  .pill-nav.mobile-open .pill-nav-shell{opacity:1;pointer-events:auto;transform:none}
+  .pill-nav-track{flex-direction:column;align-items:stretch;min-width:190px}
+  .pill-nav-indicator{top:0;bottom:auto;height:37px}
+  .pill-nav-link{text-align:left}
+  .nav-actions{margin-left:auto}
+}
+@media(min-width:901px){.menu-toggle{display:none!important}}
+
+  
+/* Pill Nav social actions */
+.nav-actions{display:flex;align-items:center;gap:7px}
+.nav-social{
+  width:40px;height:40px;border:1px solid rgba(255,255,255,.14);
+  border-radius:50%;display:grid;place-items:center;
+  background:rgba(18,18,18,.68);color:#aaa;
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  transition:transform .3s ease,color .3s ease,border-color .3s ease,background .3s ease;
+}
+.nav-social:hover{transform:translateY(-2px);color:#fff;border-color:rgba(255,255,255,.38);background:rgba(35,35,35,.82)}
+.nav-social svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+html.light-theme .nav-social{background:rgba(255,255,255,.72);border-color:rgba(0,0,0,.12);color:#666}
+html.light-theme .nav-social:hover{color:#111;border-color:rgba(0,0,0,.3);background:#fff}
+@media(max-width:1100px){
+  .pill-nav-link{padding:10px 12px}
+  .nav-social{width:38px;height:38px}
+}
+@media(max-width:900px){
+  .nav-actions{margin-left:auto}
+  .pill-nav-shell{top:64px;right:0}
+}
+@media(max-width:650px){
+  .nav-social{width:36px;height:36px}
+  .nav-social svg{width:16px;height:16px}
+  .theme-toggle{width:38px;height:38px}
+}
+
   </style>
 </head>
 
@@ -1354,22 +1352,36 @@ header::after{
       Uzaam <span>Shaad K.</span>
     </div>
 
-    <nav>
-      <ul class="nav-links" id="navLinks">
-        <li><button class="nav-link active" data-page="home">Home</button></li>
-        <li><button class="nav-link" data-page="about">About</button></li>
-        <li><button class="nav-link" data-page="experience">Experience</button></li>
-        <li><button class="nav-link" data-page="projects">Projects</button></li>
-        <li><button class="nav-link" data-page="blog">Blog</button></li>
-        <li>
-          <button class="nav-link nav-contact" data-page="contact">
-            Contact
-          </button>
-        </li>
-      </ul>
+    <nav class="pill-nav" aria-label="Primary navigation">
+      <div class="pill-nav-shell">
+        <div class="pill-nav-track" id="pillNavTrack">
+          <span class="pill-nav-indicator" id="pillNavIndicator" aria-hidden="true"></span>
+          <button class="pill-nav-link active" data-page="home">Home</button>
+          <button class="pill-nav-link" data-page="about">About</button>
+          <button class="pill-nav-link" data-page="experience">Experience</button>
+          <button class="pill-nav-link" data-page="projects">Projects</button>
+          <button class="pill-nav-link" data-page="blog">Blog</button>
+          <button class="pill-nav-link" data-page="contact">Contact</button>
+        </div>
+      </div>
     </nav>
 
-    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+    <div class="nav-actions">
+      <a class="nav-social" href="https://www.linkedin.com/in/uzaamshaad" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+      <a class="nav-social" href="https://github.com/uzaam07" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+      </a>
+      <a class="nav-social" href="mailto:uzaamshaad6@gmail.com" aria-label="Email" title="Email">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.99 5.73a2 2 0 0 1-2.02 0L2 7"/></svg>
+      </a>
+
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light theme" title="Toggle theme">
+        <span class="theme-icon" id="themeIcon">☼</span>
+      </button>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+    </div>
   </div>
 </header>
 
@@ -1445,32 +1457,7 @@ header::after{
           </div>
         </div>
       </aside>
-
-      <!-- Left Docked Floating Social Bar (Reference Signature) -->
-  <aside class="floating-social-bar" aria-label="Social Profiles">
-    <a href="https://github.com/uzaam07" target="_blank" rel="noopener noreferrer" class="floating-social-link" title="GitHub (@uzaam07)" aria-label="GitHub">
-      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
-        <path d="M9 18c-4.51 2-5-2-7-2"></path>
-      </svg>
-    </a>
-    <a href="https://www.linkedin.com/in/uzaamshaad" target="_blank" rel="noopener noreferrer" class="floating-social-link" title="LinkedIn Profile" aria-label="LinkedIn">
-      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-        <rect width="4" height="12" x="2" y="9"></rect>
-        <circle cx="4" cy="4" r="2"></circle>
-      </svg>
-    </a>
-    <a href="mailto:uzaamshaad6@gmail.com" class="floating-social-link" title="Email Uzaam" aria-label="Email">
-      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-        <path d="m22 7-8.99 5.73a2 2 0 0 1-2.02 0L2 7"></path>
-      </svg>
-    </a>
-    <div class="floating-social-line"></div>
-  </aside>
-
-    </div>
+</div>
   </section>
 
 
@@ -1498,7 +1485,7 @@ header::after{
 
       <div class="project-grid">
 
-        <article class="project-card">
+        <article class="project-card tilt-card" data-tilt>
           <div class="project-image">🧠</div>
 
           <div class="project-body">
@@ -1535,7 +1522,7 @@ header::after{
         </article>
 
 
-        <article class="project-card">
+        <article class="project-card tilt-card" data-tilt>
           <div class="project-image">🚕</div>
 
           <div class="project-body">
@@ -1572,7 +1559,7 @@ header::after{
         </article>
 
 
-        <article class="project-card">
+        <article class="project-card tilt-card" data-tilt>
           <div class="project-image">🍱</div>
 
           <div class="project-body">
@@ -2658,15 +2645,40 @@ header::after{
      NAVIGATION + MICRO-INTERACTIONS
      ============================================================ */
   const pages = document.querySelectorAll(".page");
-  const navButtons = document.querySelectorAll(".nav-link");
+  const navButtons = document.querySelectorAll(".pill-nav-link");
   const navLinks = document.getElementById("navLinks");
   const menuToggle = document.getElementById("menuToggle");
+
+  const pillNavTrack = document.getElementById("pillNavTrack");
+  const pillNavIndicator = document.getElementById("pillNavIndicator");
+  const themeToggle = document.getElementById("themeToggle");
+  const themeIcon = document.getElementById("themeIcon");
+
+  function updatePillIndicator() {
+    const active = document.querySelector(".pill-nav-link.active");
+    if (!active || !pillNavIndicator || !pillNavTrack) return;
+    pillNavIndicator.style.width = active.offsetWidth + "px";
+    pillNavIndicator.style.transform = `translateX(${active.offsetLeft}px)`;
+  }
+  window.addEventListener("resize", updatePillIndicator);
+
+  function setTheme(mode) {
+    const light = mode === "light";
+    document.documentElement.classList.toggle("light-theme", light);
+    localStorage.setItem("uzaam-theme", light ? "light" : "dark");
+    if (themeIcon) themeIcon.textContent = light ? "☾" : "☼";
+    if (themeToggle) themeToggle.setAttribute("aria-label", light ? "Switch to dark theme" : "Switch to light theme");
+  }
+  setTheme(localStorage.getItem("uzaam-theme") || "dark");
+  themeToggle?.addEventListener("click", () => setTheme(document.documentElement.classList.contains("light-theme") ? "dark" : "light"));
 
   function showPage(pageId) {
     pages.forEach(page => page.classList.toggle("active", page.id === pageId));
     navButtons.forEach(button => button.classList.toggle("active", button.dataset.page === pageId));
-    navLinks.classList.remove("open");
+    if (navLinks) navLinks.classList.remove("open");
+    document.querySelector(".pill-nav")?.classList.remove("mobile-open");
     menuToggle.setAttribute("aria-expanded","false");
+    updatePillIndicator();
     window.scrollTo({top:0, behavior:"smooth"});
     history.replaceState(null, "", "#" + pageId);
     setTimeout(initReveal, 80);
@@ -2675,7 +2687,8 @@ header::after{
   navButtons.forEach(button => button.addEventListener("click", () => showPage(button.dataset.page)));
 
   menuToggle.addEventListener("click", () => {
-    const open = navLinks.classList.toggle("open");
+    const pillNav = document.querySelector(".pill-nav");
+    const open = pillNav.classList.toggle("mobile-open");
     menuToggle.setAttribute("aria-expanded", String(open));
   });
 
@@ -2839,6 +2852,7 @@ header::after{
   document.getElementById("year").textContent = new Date().getFullYear();
   initReveal();
   loadFromHash();
+  requestAnimationFrame(updatePillIndicator);
 
 const canvas = document.getElementById("ferrofluid-canvas");
 const ctx = canvas.getContext("2d");
