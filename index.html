@@ -2,7 +2,8 @@
 <html lang="en" class="is-loading">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#080808">
 
   <title>Uzaam Shaad | Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1963,6 +1964,71 @@ button, a, input, textarea { -webkit-tap-highlight-color:transparent; }
   .pill-nav-link:hover,
   .nav-social:hover,
   .theme-toggle:hover { transform:none; }
+}
+
+/* ============================================================
+   RESPONSIVE POLISH (phones, tablets, desktop)
+   Appended last so it wins. Fixes: off-screen mobile menu,
+   stuck nav indicator, hidden social icons on small phones,
+   squashed profile photo, orphan tablet card, touch performance,
+   safe-area insets and tap targets.
+   ============================================================ */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{overscroll-behavior-x:none;padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right);padding-bottom:env(safe-area-inset-bottom)}
+img,video{max-width:100%}
+.profile-circle{flex:none;aspect-ratio:1/1}
+
+/* ---- mobile / tablet dropdown menu ---- */
+@media (max-width:900px){
+  .pill-nav{position:static}
+  .pill-nav-shell{
+    position:absolute;top:calc(100% + 8px) !important;right:15px !important;left:auto !important;
+    width:min(250px,calc(100vw - 30px));max-width:none;
+    max-height:calc(100vh - 90px);max-height:calc(100dvh - 90px);overflow-y:auto;
+    padding:6px;background:rgba(14,14,16,.97);
+  }
+  .pill-nav-track{min-width:0;width:100%;gap:2px}
+  .pill-nav-indicator{display:none}
+  .pill-nav-link{
+    display:block;width:100%;min-height:44px;padding:0 16px;line-height:44px;
+    border-radius:12px;font-size:15px;text-align:left;
+  }
+  .pill-nav-link:hover{transform:none}
+  .pill-nav-link.active{background:#fff;color:#050505}
+  .pill-nav-link .roll{display:block}
+  html.light-theme .pill-nav-shell{background:rgba(255,255,255,.98)}
+  html.light-theme .pill-nav-link.active{background:#111;color:#fff}
+}
+
+/* ---- header icons: bigger tap targets, never hidden ---- */
+@media (max-width:600px){
+  .nav-social,.theme-toggle,.menu-toggle{width:40px !important;height:40px !important}
+}
+@media (max-width:380px){
+  .nav-social{display:grid !important}
+  .nav-social,.theme-toggle,.menu-toggle{width:34px !important;height:34px !important}
+  .nav-actions{gap:4px}
+  .navbar{gap:6px}
+  .logo{font-size:15px}
+}
+
+/* ---- tablet: no orphan card leaving a hole ---- */
+@media (min-width:701px) and (max-width:1100px){
+  .project-grid>:last-child:nth-child(odd){grid-column:1/-1}
+}
+
+/* ---- touch devices: no keyboard hint, calmer GPU/CPU work ---- */
+@media (hover:none),(pointer:coarse){
+  .command-hint{display:none !important}
+  .hero-card::after,.btn-primary::after{animation:none}
+  .bg-fx .aurora{animation:none}
+  input,textarea,select{font-size:16px}
+}
+
+/* ---- landscape phones ---- */
+@media (max-height:520px) and (orientation:landscape){
+  .pill-nav-shell{max-height:calc(100vh - 76px);max-height:calc(100dvh - 76px)}
+  .pill-nav-link{min-height:38px;line-height:38px}
 }
 </style>
 
@@ -4102,7 +4168,7 @@ button, a, input, textarea { -webkit-tap-highlight-color:transparent; }
 
     var dpr=1,t0=performance.now(),raf=0,visible=true;
     function resize(){
-      dpr=Math.min(window.devicePixelRatio||1,1.5);
+      dpr=matchMedia('(pointer:coarse)').matches?Math.min(window.devicePixelRatio||1,1)*0.75:Math.min(window.devicePixelRatio||1,1.5);
       var w=Math.max(1,Math.floor(hero.clientWidth*dpr)),h=Math.max(1,Math.floor(hero.clientHeight*dpr));
       if(cv.width!==w||cv.height!==h){ cv.width=w; cv.height=h; }
       gl.viewport(0,0,w,h);
@@ -4137,6 +4203,22 @@ button, a, input, textarea { -webkit-tap-highlight-color:transparent; }
     document.documentElement.classList.remove('scanner-on');
     console.warn('scanner background disabled:',err);
   }
+})();
+</script>
+<script id="responsive-polish-js">
+(function(){
+  var nav=document.querySelector('.pill-nav'), t=document.getElementById('menuToggle');
+  if(!nav||!t) return;
+  t.setAttribute('aria-controls','pillNavTrack');
+  function close(){ nav.classList.remove('mobile-open'); t.setAttribute('aria-expanded','false'); }
+  document.addEventListener('pointerdown',function(e){
+    if(!nav.classList.contains('mobile-open')) return;
+    if(nav.contains(e.target)||t.contains(e.target)) return;
+    close();
+  },true);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
+  var mq=matchMedia('(min-width:901px)');
+  (mq.addEventListener?mq.addEventListener('change',function(m){ if(m.matches) close(); }):mq.addListener(function(m){ if(m.matches) close(); }));
 })();
 </script>
 </body>
