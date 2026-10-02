@@ -1,6 +1,34 @@
 <!DOCTYPE html>
 <html lang="en" class="is-loading">
 <head>
+  <script>
+  /* Refresh -> always land on Home, intro loader plays only on the first open of a session */
+  (function(){
+    var root = document.documentElement;
+    try { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } catch(e){}
+    /* drop any #section from the URL so a refresh never re-opens a inner page */
+    try {
+      if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+    } catch(e){}
+    var seen = false;
+    try { seen = sessionStorage.getItem('uzaam-intro-seen') === '1'; } catch(e){}
+    if (seen) {
+      root.classList.add('skip-intro');
+      root.classList.remove('is-loading');
+    } else {
+      try { sessionStorage.setItem('uzaam-intro-seen', '1'); } catch(e){}
+    }
+    window.scrollTo(0, 0);
+  })();
+  </script>
+  <style>
+    html.skip-intro #entrance{display:none!important}
+    /* refresh: no scroll animation, gentle fade-in so landing on Home never pops */
+    html.skip-intro{scroll-behavior:auto!important}
+    html.skip-intro body{animation:refreshFade .55s cubic-bezier(.22,1,.36,1) both}
+    @keyframes refreshFade{from{opacity:0}to{opacity:1}}
+    @media (prefers-reduced-motion: reduce){html.skip-intro body{animation:none}}
+  </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#080808">
@@ -3652,6 +3680,19 @@ img,video{max-width:100%}
   const root = document.documentElement;
   const ent = document.getElementById('entrance');
   if (!ent) { root.classList.remove('is-loading'); return; }
+  if (root.classList.contains('skip-intro')) {   /* refresh: no loader, straight to Home */
+    ent.remove();
+    root.classList.remove('is-loading');
+    window.scrollTo(0, 0);
+    /* keep it pinned to the top while fonts/images settle, and when restored from back/forward cache */
+    window.addEventListener('load', () => window.scrollTo(0, 0), {once:true});
+    window.addEventListener('pageshow', e => { if (e.persisted) window.scrollTo(0, 0); });
+    window.setTimeout(() => {
+      if (typeof initReveal === 'function') initReveal();
+      if (typeof window.__runHeroSplit === 'function') window.__runHeroSplit();
+    }, 80);
+    return;
+  }
   const bar = ent.querySelector('.ent-bar i');
   const count = ent.querySelector('.ent-count');
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
